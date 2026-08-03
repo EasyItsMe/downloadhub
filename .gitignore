@@ -1,0 +1,27 @@
+# Node
+node_modules/
+.pnp
+.pnp.js
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+venv/
+env/
+.env
+.env.local
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Turbo
+.turbo
