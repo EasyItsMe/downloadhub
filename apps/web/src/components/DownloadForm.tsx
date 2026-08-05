@@ -139,7 +139,7 @@ export default function DownloadForm() {
                 .filter(f => f.resolution?.toLowerCase() !== 'unknown' && f.ext?.toLowerCase() !== 'unknown')
                 .map((format, idx) => {
                 const targetUrl = format.url && format.url.includes("tikwm.com") ? format.url : url;
-                const downloadLink = `http://127.0.0.1:8000/api/download/file?url=${encodeURIComponent(targetUrl)}&format_id=${encodeURIComponent(format.format_id)}`;
+                const downloadLink = `http://127.0.0.1:8000/api/download/file?url=${encodeURIComponent(targetUrl)}&format_id=${encodeURIComponent(format.format_id)}&ext=${encodeURIComponent(format.ext)}`;
                 const isDownloading = downloadingFormat === format.format_id;
                 
                 const fileSizeStr = formatBytes(format.filesize);

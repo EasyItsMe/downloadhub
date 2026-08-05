@@ -1,9 +1,10 @@
 "use client";
 
-import { DownloadCloud, Moon, Sun } from "lucide-react";
+import { Moon, Sun, DownloadCloud } from "lucide-react";
 import Link from "next/link";
 import { useTheme } from "@wrksz/themes/client";
 import { useEffect, useState } from "react";
+import { Logo } from "@/components/ui/Logo";
 
 export function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -17,10 +18,8 @@ export function Navbar() {
   return (
     <header className="fixed top-0 w-full border-b border-zinc-200 dark:border-white/5 bg-white/80 dark:bg-slate-900/50 backdrop-blur-xl z-50 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/20">
-            <DownloadCloud className="w-5 h-5 text-white" />
-          </div>
+        <div className="flex items-center gap-2.5 hover:opacity-90 transition-opacity cursor-pointer">
+          <Logo />
           <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">SnapVid</span>
         </div>
         

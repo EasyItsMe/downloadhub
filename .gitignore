@@ -25,3 +25,8 @@ dist/
 
 # Turbo
 .turbo
+
+# Test files and cookies
+cookies.txt
+test_*
+xhs_state.json

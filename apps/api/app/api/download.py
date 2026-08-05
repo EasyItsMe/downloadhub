@@ -20,6 +20,13 @@ def extract_video_info(url: str) -> dict:
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         }
     }
+    
+    # Check for cookies.txt in apps/api folder
+    import os
+    cookie_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "cookies.txt")
+    if os.path.exists(cookie_path):
+        ydl_opts['cookiefile'] = cookie_path
+
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         try:
             info = ydl.extract_info(url, download=False)
@@ -83,8 +90,16 @@ async def get_video_info(request: URLRequest):
             vcodec = str(f.get('vcodec', 'none')).lower()
             acodec = str(f.get('acodec', 'none')).lower()
             
-            is_audio_only = vcodec == 'none'
+            # Treat streams with only album art (mjpeg/images) or explicit audio notes as audio-only
+            is_audio_only = vcodec in ['none', 'null', 'mjpeg', 'images'] or str(f.get('format_note', '')).lower() == 'audio only'
             is_video_only = acodec == 'none' and not is_audio_only
+            
+            if is_audio_only:
+                vcodec = 'none'
+            
+            ext = str(f.get('ext')).lower()
+            if is_audio_only and ext == 'mp4':
+                ext = 'm4a'
             
             height = f.get('height')
             if is_audio_only:
@@ -98,7 +113,7 @@ async def get_video_info(request: URLRequest):
                 resolution = "Unknown"
 
             # Deduplicate by resolution to avoid spamming the user
-            dedup_key = f"{resolution}-{f.get('ext')}"
+            dedup_key = f"{resolution}-{ext}"
             if dedup_key in seen_resolutions:
                 continue
             seen_resolutions.add(dedup_key)
@@ -110,12 +125,12 @@ async def get_video_info(request: URLRequest):
 
             formats.append(FormatInfo(
                 format_id=final_format_id,
-                ext=str(f.get('ext')),
+                ext=ext,
                 resolution=resolution,
                 filesize=f.get('filesize') or f.get('filesize_approx'),
                 url=str(f.get('url', '')),
-                vcodec=str(f.get('vcodec')),
-                acodec=str(f.get('acodec'))
+                vcodec=vcodec,
+                acodec=acodec
             ))
 
         return VideoInfo(
@@ -136,27 +151,42 @@ def remove_file(path: str):
         pass
 
 @router.get("/file")
-async def download_file(url: str, format_id: str, background_tasks: BackgroundTasks):
+async def download_file(url: str, format_id: str, background_tasks: BackgroundTasks, ext: str = "mp4"):
     try:
         ffmpeg_path = imageio_ffmpeg.get_ffmpeg_exe()
         
+        is_audio = ext in ['m4a', 'mp3', 'wav', 'aac']
+        
         # Temp output path
         temp_dir = tempfile.gettempdir()
-        filename = f"dlhub_{uuid.uuid4().hex}.mp4"
-        out_path = os.path.join(temp_dir, filename)
+        filename_base = f"snapvid_{uuid.uuid4().hex}"
+        outtmpl = os.path.join(temp_dir, f"{filename_base}.%(ext)s")
+        out_path = os.path.join(temp_dir, f"{filename_base}.{ext}")
 
         ydl_opts = {
             'quiet': True,
             'no_warnings': True,
             'format': format_id,
-            'merge_output_format': 'mp4',
-            'outtmpl': out_path,
+            'outtmpl': outtmpl,
             'ffmpeg_location': ffmpeg_path,
             'http_headers': {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             }
         }
         
+        if is_audio:
+            ydl_opts['postprocessors'] = [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': ext,
+            }]
+        else:
+            ydl_opts['merge_output_format'] = ext
+
+        # Check for cookies.txt in apps/api folder
+        cookie_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "cookies.txt")
+        if os.path.exists(cookie_path):
+            ydl_opts['cookiefile'] = cookie_path
+            
         # TikWM URL handling
         if url.startswith("https://www.tikwm.com"):
             # Since TikWM returns direct mp4 URL, we just proxy download it
@@ -171,12 +201,16 @@ async def download_file(url: str, format_id: str, background_tasks: BackgroundTa
                     ydl.download([url])
             await asyncio.to_thread(run_dl)
         
-        background_tasks.add_task(remove_file, out_path)
+        if background_tasks:
+            background_tasks.add_task(remove_file, out_path)
+            
+        final_filename = f"SnapVid_Audio.{ext}" if is_audio else f"SnapVid_Video.{ext}"
+        media_type = f"audio/{ext}" if is_audio else f"video/{ext}"
         
         return FileResponse(
             path=out_path, 
-            filename="DownloadHub_Video.mp4",
-            media_type="video/mp4"
+            filename=final_filename,
+            media_type=media_type
         )
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Download failed: {str(e)}")
