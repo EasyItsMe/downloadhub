@@ -7,7 +7,7 @@ export default function DMCA() {
           <p>SnapVid respects the intellectual property rights of others and expects its users to do the same. In accordance with the Digital Millennium Copyright Act of 1998 (DMCA), we will respond expeditiously to claims of copyright infringement.</p>
 
           <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mt-8">1. How Our Service Works</h2>
-          <p>It is important to understand that SnapVid does not host, store, or archive any media files (videos, audio, or images) on our servers. Our service functions merely as a conduit, passing standard HTTP requests from the user to the original content provider's servers. The downloaded files are transmitted directly from the source server to the user's device.</p>
+          <p>It is important to understand that SnapVid does not host, store, or archive any media files (videos, audio, or images) on our servers. Our service functions merely as a conduit, passing standard HTTP requests from the user to the original content provider&apos;s servers. The downloaded files are transmitted directly from the source server to the user&apos;s device.</p>
 
           <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mt-8">2. Submitting a Takedown Notice</h2>
           <p>Since we do not host the content, we cannot delete it from the internet. If you are a copyright owner and find your content being accessed improperly, your primary recourse must be to contact the original hosting platform (e.g., YouTube, TikTok, Instagram) to have the source file removed.</p>

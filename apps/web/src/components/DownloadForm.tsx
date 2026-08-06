@@ -110,21 +110,22 @@ export default function DownloadForm() {
 
       {result && (
         <div className="mt-12 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md border border-zinc-200 dark:border-zinc-800/80 rounded-2xl overflow-hidden flex flex-col md:flex-row shadow-2xl">
-          <div className="w-full md:w-[45%] shrink-0 bg-zinc-100 dark:bg-black/80 border-b md:border-b-0 md:border-r border-zinc-200 dark:border-zinc-800 relative">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
+          <div className="w-full md:w-[45%] shrink-0 bg-zinc-100 dark:bg-black/80 border-b md:border-b-0 md:border-r border-zinc-200 dark:border-zinc-800 relative overflow-hidden flex items-center justify-center min-h-[250px] aspect-[4/3] md:aspect-auto md:min-h-full">
+            {/* Actual Uncropped Image */}
             <img 
               src={result.thumbnail} 
               alt={result.title} 
-              className="w-full h-full aspect-video md:aspect-auto object-cover opacity-90"
+              className="absolute inset-0 w-full h-full object-contain z-10 p-4"
             />
-            <div className="absolute top-4 left-4">
+            
+            <div className="absolute top-4 left-4 z-20">
               <span className="px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-md text-xs text-zinc-200 font-bold tracking-wide uppercase border border-white/10 shadow-lg">
                 {result.extractor}
               </span>
             </div>
             {result.duration && (
-              <div className="absolute bottom-4 right-4">
-                <span className="px-2 py-1 rounded bg-black/80 text-xs text-zinc-200 font-medium tracking-wide">
+              <div className="absolute bottom-4 right-4 z-20">
+                <span className="px-2 py-1 rounded bg-black/80 backdrop-blur-md text-xs text-zinc-200 font-medium tracking-wide border border-white/10">
                   {Math.floor(result.duration / 60)}:{(result.duration % 60).toString().padStart(2, '0')}
                 </span>
               </div>
@@ -132,7 +133,7 @@ export default function DownloadForm() {
           </div>
           
           <div className="flex-1 p-6 md:p-8 min-w-0 flex flex-col">
-            <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-6 line-clamp-2 leading-snug" title={result.title}>{result.title}</h3>
+            <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-6 leading-snug" title={result.title}>{result.title}</h3>
             
             <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-3 custom-scrollbar flex-1">
               {result.formats

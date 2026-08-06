@@ -27,7 +27,7 @@ export function Footer() {
       <div className="relative max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8">
         
         {/* Brand Section */}
-        <div className="col-span-1 md:col-span-5 lg:col-span-4">
+        <div className="col-span-1 md:col-span-6 lg:col-span-5">
           <div className="flex items-center gap-2.5 mb-6 hover:opacity-90 transition-opacity cursor-pointer">
             <Logo />
             <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">SnapVid</span>
@@ -49,24 +49,13 @@ export function Footer() {
         </div>
 
         {/* Links Grid */}
-        <div className="col-span-1 md:col-span-7 lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-8">
+        <div className="col-span-1 md:col-span-6 lg:col-span-7 grid grid-cols-2 gap-8">
           <div>
             <h4 className="text-slate-900 dark:text-white font-semibold mb-5">Product</h4>
             <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-400">
               <li><Link href="#features" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Features</Link></li>
               <li><Link href="#how-it-works" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">How It Works</Link></li>
               <li><Link href="#faq" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">FAQ</Link></li>
-              <li><Link href="#" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">API Access</Link></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="text-slate-900 dark:text-white font-semibold mb-5">Supported</h4>
-            <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-400">
-              <li><a href="#" className="hover:text-red-500 transition-colors">YouTube</a></li>
-              <li><a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">TikTok</a></li>
-              <li><a href="#" className="hover:text-pink-600 transition-colors">Instagram</a></li>
-              <li><a href="#" className="hover:text-blue-500 transition-colors">Facebook</a></li>
             </ul>
           </div>
 
@@ -83,11 +72,7 @@ export function Footer() {
       
       <div className="relative max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-slate-200/60 dark:border-slate-800/60 flex flex-col md:flex-row items-center justify-between text-sm text-slate-500 dark:text-slate-500">
         <p>© {new Date().getFullYear()} SnapVid. All rights reserved.</p>
-        <div className="flex items-center gap-2 mt-4 md:mt-0 font-medium">
-          <span>Made with</span>
-          <span className="text-red-500 animate-pulse">❤</span>
-          <span>for creators.</span>
-        </div>
+        <p className="mt-4 md:mt-0">v1.0.0</p>
       </div>
     </footer>
   );

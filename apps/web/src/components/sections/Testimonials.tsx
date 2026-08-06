@@ -29,7 +29,7 @@ export function Testimonials() {
     <section className="py-32 px-6 w-full max-w-7xl mx-auto bg-slate-100 dark:bg-slate-900/30 rounded-[3rem] border border-slate-200 dark:border-slate-800/50 my-20">
       <div className="text-center mb-20">
         <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white tracking-tight">Loved by creators</h2>
-        <p className="text-slate-600 dark:text-slate-400 max-w-xl mx-auto text-lg">Don't just take our word for it. Here's what professionals have to say.</p>
+        <p className="text-slate-600 dark:text-slate-400 max-w-xl mx-auto text-lg">Don&apos;t just take our word for it. Here&apos;s what professionals have to say.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

@@ -16,10 +16,10 @@ export default function TermsOfService() {
           <p>You agree to use our service only for lawful purposes. You are solely responsible for ensuring that you have the right to download the media you access through SnapVid. You must not use our service to download copyrighted material without the explicit permission of the copyright owner.</p>
 
           <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mt-8">4. Disclaimer of Warranties</h2>
-          <p>The service is provided on an "AS IS" and "AS AVAILABLE" basis. SnapVid makes no warranties, expressed or implied, and hereby disclaims all warranties, including without limitation, implied warranties or conditions of merchantability or fitness for a particular purpose.</p>
+          <p>The service is provided on an &quot;AS IS&quot; and &quot;AS AVAILABLE&quot; basis. SnapVid makes no warranties, expressed or implied, and hereby disclaims all warranties, including without limitation, implied warranties or conditions of merchantability or fitness for a particular purpose.</p>
 
           <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mt-8">5. Limitation of Liability</h2>
-          <p>In no event shall SnapVid or its operators be liable for any damages arising out of the use or inability to use the materials on SnapVid's website, even if SnapVid has been notified orally or in writing of the possibility of such damage.</p>
+          <p>In no event shall SnapVid or its operators be liable for any damages arising out of the use or inability to use the materials on SnapVid&apos;s website, even if SnapVid has been notified orally or in writing of the possibility of such damage.</p>
         </div>
       </div>
     </main>
