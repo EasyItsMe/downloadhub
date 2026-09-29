@@ -76,26 +76,30 @@ export default function DownloadForm() {
   return (
     <div className="w-full text-left">
       <form onSubmit={handleDownloadInfo} className="w-full">
-        <div className="relative flex items-center bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-500/20 rounded-2xl overflow-hidden transition-all shadow-xl">
-          <div className="pl-5 pr-3 text-zinc-400 dark:text-zinc-500">
-            <LinkIcon className="w-5 h-5" />
+        <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-0 bg-transparent sm:bg-white/80 sm:dark:bg-zinc-900/80 sm:backdrop-blur-sm sm:border sm:border-zinc-200 sm:dark:border-zinc-800 focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-500/20 sm:rounded-2xl transition-all sm:shadow-xl w-full">
+          
+          <div className="relative flex-1 flex items-center bg-white/80 dark:bg-zinc-900/80 sm:bg-transparent sm:dark:bg-transparent backdrop-blur-sm sm:backdrop-blur-none border border-zinc-200 dark:border-zinc-800 sm:border-none rounded-2xl sm:rounded-none w-full shadow-lg sm:shadow-none h-14 sm:h-auto">
+            <div className="pl-5 pr-3 text-zinc-400 dark:text-zinc-500 shrink-0">
+              <LinkIcon className="w-5 h-5" />
+            </div>
+            <input
+              type="url"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              placeholder="Paste video link here..."
+              required
+              className="flex-1 w-full min-w-0 bg-transparent border-none outline-none text-zinc-900 dark:text-zinc-100 text-base sm:text-lg px-2 py-4 sm:py-5 placeholder-zinc-400 dark:placeholder-zinc-600"
+            />
           </div>
-          <input
-            type="url"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="Paste your video link here..."
-            required
-            className="flex-1 bg-transparent border-none outline-none text-zinc-900 dark:text-zinc-100 text-lg px-2 py-5 placeholder-zinc-400 dark:placeholder-zinc-600"
-          />
-          <div className="pr-2.5">
+          
+          <div className="w-full sm:w-auto sm:pr-2.5 shrink-0">
             <button
               type="submit"
               disabled={loading}
-              className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-blue-900/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 text-sm"
+              className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 sm:py-3.5 rounded-2xl sm:rounded-xl transition-all shadow-lg shadow-blue-900/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-base sm:text-sm"
             >
-              {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
-              {loading ? "Extracting..." : "Extract"}
+              {loading ? <Loader2 className="w-5 h-5 sm:w-4 sm:h-4 animate-spin" /> : <Download className="w-5 h-5 sm:w-4 sm:h-4" />}
+              {loading ? "Extracting..." : "Extract Video"}
             </button>
           </div>
         </div>
